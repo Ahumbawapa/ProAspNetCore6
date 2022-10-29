@@ -1,3 +1,4 @@
+@model string
 @{
     //Tells Razor that I chose not to use a layout
     Layout = null;
@@ -11,7 +12,7 @@
     </head>
     <body>
         <div>
-            Hello World (from the view)
+            @Model World (from the view)
         </div>
     </body>
 </html>
