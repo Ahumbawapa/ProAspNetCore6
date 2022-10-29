@@ -1,13 +1,20 @@
-﻿using System.Diagnostics;
+﻿
 using Microsoft.AspNetCore.Mvc;
-using PartyInvites.Models;
 
-namespace PartyInvites.Controllers;
 
-public class HomeController : Controller
+namespace PartyInvites.Controllers
 {
-    public ViewResult RsvpForm()
+
+    public class HomeController : Controller
     {
-        return View();
+        public IActionResult Index()
+        {
+            return View();
+        }  
+        public ViewResult RsvpForm()
+        {
+            return View();
+
+        }
     }
 }
