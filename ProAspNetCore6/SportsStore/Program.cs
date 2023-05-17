@@ -20,6 +20,10 @@ builder.Services.AddDbContext<StoreDbContext>(opts =>
         );
 });
 
+//Sorgt dafür, dass bei jedem Request ein Objekt der Klasse EFStoreRepository 
+//erzeugt wird, wo eine IStoreRepository - Instanz benötigt wird
+builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
+
 var app = builder.Build();
 
 //app.MapGet("/", () => "Hello World!");
