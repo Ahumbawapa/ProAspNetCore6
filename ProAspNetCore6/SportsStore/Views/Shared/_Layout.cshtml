@@ -1,0 +1,16 @@
+﻿@*Definiert ein einfaches HTML-Dokument in das die Ansichten
+anderer Views integriert werden über die RenderBody() - Anweisung*@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
