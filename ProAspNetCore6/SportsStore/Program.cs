@@ -33,4 +33,7 @@ app.UseStaticFiles(); // stellt Unterstützung für statische Seiten in wwwroot be
 //Standard-Mapping Einstellungen
 app.MapDefaultControllerRoute();
 
+//Aufruf der statischen Seed-Methode
+SeedData.EnsurePopulated(app);
+
 app.Run();
