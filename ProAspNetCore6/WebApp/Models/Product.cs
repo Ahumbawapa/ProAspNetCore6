@@ -6,7 +6,7 @@ namespace WebApp.Models
     {
         public long ProductId { get; set; }
         public string Name { get; set; } = string.Empty;
-        [Column(TypeName = "decimal(8,2")]
+        [Column(TypeName = "decimal(8,2)")]
         public decimal Price { get; set; }
 
         public long CategoryId { get; set; }

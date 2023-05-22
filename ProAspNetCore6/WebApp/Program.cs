@@ -12,10 +12,13 @@ builder.Services.AddDbContext<DataContext>(opts =>
 
 var app = builder.Build();
 
+app.UseMiddleware<WebApp.TestMiddleware>();
+
 app.MapGet("/", () => "Hello World!");
 
 var context = app.Services.CreateScope()
     .ServiceProvider.GetRequiredService<DataContext>();
+
 SeedData.SeedDataBase(context);
 
 
