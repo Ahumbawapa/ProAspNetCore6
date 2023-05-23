@@ -1,2 +1,6 @@
 ﻿@using SportsStore.Models
+@using SportsStore.ViewModels @*//refer to ViewModel-Classes without qualify their names*@
+
 @addTagHelper *, Microsoft.AspNetCore.MVC.TagHelpers
+@*//Taghelpers have to be registered! look for TagHelpers in SportsStore project*@
+@addTagHelper *, SportsStore 

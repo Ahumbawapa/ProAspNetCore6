@@ -25,10 +25,12 @@ namespace WebApp.Controllers
         }
 
         [HttpPost] // can process POST-Request
-        public async Task SaveProduct([FromBody] Product product, [FromServices] ILogger<ProductsController> logger) // value obtained from Request-Body
+        public async Task SaveProduct([FromBody] ProductBindingTarget target, [FromServices] ILogger<ProductsController> logger) // value obtained from Request-Body
         {
             logger.LogInformation("SaveProduct invoked");
-            await context.Products.AddAsync(product);
+            //await context.Products.AddAsync(product);
+            // prevent overloading
+            await context.Products.AddAsync(target.ToProduct());
             await context.SaveChangesAsync();
         }
 
