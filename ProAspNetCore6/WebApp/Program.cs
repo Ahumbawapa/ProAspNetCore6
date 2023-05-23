@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
 
+//-> Adding Additional Actions
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DataContext>(opts =>
