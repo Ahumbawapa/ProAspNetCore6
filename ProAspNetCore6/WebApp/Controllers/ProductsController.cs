@@ -23,5 +23,13 @@ namespace WebApp.Controllers
             logger.LogDebug("GetProduct Action invoked");
             return context.Products.Find(id);
         }
+
+        [HttpPost] // can process POST-Request
+        public void SaveProduct([FromBody] Product product, [FromServices] ILogger<ProductsController> logger) // value obtained from Request-Body
+        {
+            logger.LogInformation("SaveProduct invoked");
+            context.Products.Add(product);
+            context.SaveChanges();
+        }
     }
 }
