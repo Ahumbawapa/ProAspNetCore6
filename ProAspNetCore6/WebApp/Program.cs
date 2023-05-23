@@ -11,8 +11,13 @@ builder.Services.AddDbContext<DataContext>(opts =>
     opts.EnableSensitiveDataLogging(true);
 });
 
+//Add support for cross-origin requests (CORS)
+builder.Services.AddCors();
+
 // Definiert die Dienste, die für die Verwendung von Controllers gebraucht werden
 builder.Services.AddControllers();
+
+
 var app = builder.Build();
 
 app.MapControllers(); // Definiert die Routen bei Verwendung von Controllern
