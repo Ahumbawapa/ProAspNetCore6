@@ -18,10 +18,10 @@ namespace WebApp.Controllers
 
         [HttpGet("{id}")] // Bearbeitet Anfragen mit URL-Muster api/products/{id}
         // Dependencies that are declared by action methods must be decorated with the FromServices attribute
-        public Product? GetProduct([FromServices] ILogger<ProductsController> logger)
+        public Product? GetProduct(long id, [FromServices] ILogger<ProductsController> logger)
         {
             logger.LogDebug("GetProduct Action invoked");
-            return context.Products.FirstOrDefault();
+            return context.Products.Find(id);
         }
     }
 }
