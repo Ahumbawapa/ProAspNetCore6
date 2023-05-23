@@ -11,39 +11,39 @@ namespace WebApp.Controllers
 
         
         [HttpGet] // Behandelt Get - Anfragen
-        public IEnumerable<Product> GetProducts()
+        public IAsyncEnumerable<Product> GetProducts()
         {
-            return context.Products;
+            return context.Products.AsAsyncEnumerable();
         }
 
         [HttpGet("{id}")] // Bearbeitet Anfragen mit URL-Muster api/products/{id}
         // Dependencies that are declared by action methods must be decorated with the FromServices attribute
-        public Product? GetProduct(long id, [FromServices] ILogger<ProductsController> logger)
+        public async Task<Product?> GetProduct(long id, [FromServices] ILogger<ProductsController> logger)
         {
             logger.LogDebug("GetProduct Action invoked");
-            return context.Products.Find(id);
+            return await context.Products.FindAsync(id);
         }
 
         [HttpPost] // can process POST-Request
-        public void SaveProduct([FromBody] Product product, [FromServices] ILogger<ProductsController> logger) // value obtained from Request-Body
+        public async Task SaveProduct([FromBody] Product product, [FromServices] ILogger<ProductsController> logger) // value obtained from Request-Body
         {
             logger.LogInformation("SaveProduct invoked");
-            context.Products.Add(product);
-            context.SaveChanges();
+            await context.Products.AddAsync(product);
+            await context.SaveChangesAsync();
         }
 
         [HttpPut]
-        public void UpdateProduct([FromBody] Product product)
+        public async Task UpdateProduct([FromBody] Product product)
         { 
             context.Products.Update(product);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
         [HttpDelete("{id}")]
-        public void DeleteProduct(long id) 
+        public async Task DeleteProduct(long id) 
         {
             context.Products.Remove(new Product { ProductId = id });
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }
