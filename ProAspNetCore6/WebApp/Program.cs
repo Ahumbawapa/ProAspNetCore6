@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
 using System.Text.Json;
 
+//=> Creating a Web Service Using a Controller
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DataContext>(opts =>
@@ -13,6 +15,7 @@ builder.Services.AddDbContext<DataContext>(opts =>
 
 var app = builder.Build();
 
+#region Individuelle Endpunkte für einen Webdienst
 const string BASEURL = "api/products";
 app.MapGet($"{BASEURL}/{{id}}"
     , async (HttpContext context, DataContext data) =>
@@ -60,6 +63,12 @@ app.MapPost(BASEURL, async (HttpContext context, DataContext data) =>
         }
     }
 );
+
+//PowerShell - Kommando für POST 
+//PS C:\Users\KK> Invoke-RestMethod http://localhost:5000/api/products -Method POST -Body (@{Name = "Swimming Goggles"; Price=12.75; CategoryId=1; SupplierId=1} | ConvertTo-Json) -ContentType "application/json"
+//Individuelle Endpunkte für einen Webdienst
+
+#endregion
 
 app.UseMiddleware<WebApp.TestMiddleware>();
 
