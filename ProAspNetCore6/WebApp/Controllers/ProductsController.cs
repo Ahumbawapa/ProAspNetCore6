@@ -71,5 +71,18 @@ namespace WebApp.Controllers
             context.Products.Remove(new Product { ProductId = id });
             await context.SaveChangesAsync();
         }
+
+        [HttpGet("redirect")]
+        public IActionResult Redirect()
+        {
+            // Redirection to URL
+            //return Redirect("/api/products/1");
+
+            // Redirection to Action
+            //return RedirectToAction(nameof(GetProduct), new { Id = 1 });
+
+            return RedirectToRoute(new { controller = "Products", action = "GetProduct", Id = 1 });
+        }
+
     }
 }
