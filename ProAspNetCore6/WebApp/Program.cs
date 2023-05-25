@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
 
-//-> Adding Additional Actions
+//-> Using Action Results
 
 var builder = WebApplication.CreateBuilder(args);
 

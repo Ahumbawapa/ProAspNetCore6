@@ -16,22 +16,46 @@ namespace WebApp.Controllers
             return context.Products.AsAsyncEnumerable();
         }
 
-        [HttpGet("{id}")] // Bearbeitet Anfragen mit URL-Muster api/products/{id}
-        // Dependencies that are declared by action methods must be decorated with the FromServices attribute
-        public async Task<Product?> GetProduct(long id, [FromServices] ILogger<ProductsController> logger)
+        //[HttpGet("{id}")] // Bearbeitet Anfragen mit URL-Muster api/products/{id}
+        //// Dependencies that are declared by action methods must be decorated with the FromServices attribute
+        //public async Task<Product?> GetProduct(long id, [FromServices] ILogger<ProductsController> logger)
+        //{
+        //    logger.LogDebug("GetProduct Action invoked");
+        //    return await context.Products.FindAsync(id);
+        //}
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProduct(long id) 
         {
-            logger.LogDebug("GetProduct Action invoked");
-            return await context.Products.FindAsync(id);
+            Product? p = await context.Products.FindAsync(id);
+            if (null == p)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(p);
+            }
         }
 
-        [HttpPost] // can process POST-Request
-        public async Task SaveProduct([FromBody] ProductBindingTarget target, [FromServices] ILogger<ProductsController> logger) // value obtained from Request-Body
+
+        //[HttpPost] // can process POST-Request
+        //public async Task SaveProduct([FromBody] ProductBindingTarget target, [FromServices] ILogger<ProductsController> logger) // value obtained from Request-Body
+        //{
+        //    logger.LogInformation("SaveProduct invoked");
+        //    //await context.Products.AddAsync(product);
+        //    // prevent overloading
+        //    await context.Products.AddAsync(target.ToProduct());
+        //    await context.SaveChangesAsync();
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> SaveProduct([FromBody] ProductBindingTarget target) 
         {
-            logger.LogInformation("SaveProduct invoked");
-            //await context.Products.AddAsync(product);
-            // prevent overloading
-            await context.Products.AddAsync(target.ToProduct());
+            Product p = target.ToProduct();
+            await context.Products.AddAsync(p);
             await context.SaveChangesAsync();
+            return Ok(p);
         }
 
         [HttpPut]
