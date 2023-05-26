@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc;
 
 //-> Validating Data
 
@@ -16,6 +18,9 @@ builder.Services.AddCors();
 
 // Definiert die Dienste, die für die Verwendung von Controllers gebraucht werden
 builder.Services.AddControllers();
+builder.Services.Configure<JsonOptions>(opts => {
+    opts.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+}); 
 
 
 var app = builder.Build();
