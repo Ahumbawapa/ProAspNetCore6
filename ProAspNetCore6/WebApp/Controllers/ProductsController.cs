@@ -3,6 +3,7 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
+    [ApiController] // -> [FromBody], [ModelState.IsValid] sind eingeschlossen
     [Route("api/[controller]")] // URL des Controllers -> /api/products
     public class ProductsController : ControllerBase
     {
@@ -50,20 +51,16 @@ namespace WebApp.Controllers
         //}
 
         [HttpPost]
-        public async Task<IActionResult> SaveProduct([FromBody] ProductBindingTarget target) 
+        public async Task<IActionResult> SaveProduct(ProductBindingTarget target) 
         {
-            if(ModelState.IsValid) 
-            { 
             Product p = target.ToProduct();
             await context.Products.AddAsync(p);
             await context.SaveChangesAsync();
             return Ok(p);
-            }
-            return BadRequest(ModelState);
         }
 
         [HttpPut]
-        public async Task UpdateProduct([FromBody] Product product)
+        public async Task UpdateProduct(Product product)
         { 
             context.Products.Update(product);
             await context.SaveChangesAsync();
