@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SportsStore.Controllers;
 using SportsStore.Models;
+using SportsStore.ViewModels;
 
 namespace SportsStore.Tests;
 
@@ -24,11 +25,13 @@ public class HomeControllerTests
         HomeController controller = new HomeController(mock.Object);
 
         //Act
-        IEnumerable<Product>? result =
-            (controller.Index() as ViewResult)?.ViewData.Model as IEnumerable<Product>;
+        ProductsListViewModel viewModel = 
+            (controller.Index() as ViewResult)?.ViewData.Model as ProductsListViewModel;
+
+        IEnumerable<Product> products = viewModel.Products;
 
         //Assert
-        Product[] prodArray = result?.ToArray() ?? Array.Empty<Product>();
+        Product[] prodArray = products?.ToArray() ?? Array.Empty<Product>();
 
         Assert.True(prodArray.Length == 2);
         Assert.Equal("P1", prodArray[0].Name);
@@ -58,15 +61,47 @@ public class HomeControllerTests
         controller.PageSize = 3;
 
         //Act
-        IEnumerable<Product>? result =
-            //(controller.Index(2) as ViewResult)?.ViewData.Model 
-            //    as IEnumerable<Product> ?? Enumerable.Empty<Product>();
-            (controller.Index(2) as ViewResult).Model as IEnumerable<Product>;
+        ProductsListViewModel model = 
+            (controller.Index(2) as ViewResult).Model as ProductsListViewModel;
 
         // Assert
-        Product[] prodArray = result?.ToArray() ?? Array.Empty<Product>();
+        Product[] prodArray = model.Products.ToArray() ?? Array.Empty<Product>();
         Assert.True(prodArray.Length == 2);
         Assert.Equal("P4", prodArray[0].Name);
         Assert.Equal("P5", prodArray[1].Name);
+    }
+
+    
+    
+    // ...ensure that the controller sends the correct pagination data to the view
+    [Fact]
+    public void Can_Send_Pagination_View_Model()
+    { 
+        //Arrange
+        Mock<IStoreRepository> mockRepo = new Mock<IStoreRepository>();
+        mockRepo.Setup(mockRepo => mockRepo.Products).Returns((new Product[]
+        {
+            new Product { ProductID = 1, Name = "P1"},
+            new Product { ProductID = 2, Name = "P2"},
+            new Product { ProductID = 3, Name = "P3"},
+            new Product { ProductID = 4, Name = "P4"},
+            new Product { ProductID = 5, Name = "P5"}
+        }).AsQueryable<Product>()) ;
+
+        // Arrange
+        HomeController homeController = new HomeController(mockRepo.Object) { PageSize = 3 };
+
+        //Act
+        ProductsListViewModel viewModel = 
+            (homeController.Index(2) as ViewResult)?.ViewData?.Model as ProductsListViewModel ?? new();
+
+        //Assert 
+        PagingInfo pageInfo = viewModel.PagingInfo;
+        Assert.Equal(2, pageInfo.CurrentPage);
+        Assert.Equal(3, pageInfo.ItemsPerPage);
+        Assert.Equal(5, pageInfo.TotalItems);
+        Assert.Equal(2, pageInfo.TotalPages);
+
+    
     }
 }

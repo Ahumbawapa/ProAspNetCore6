@@ -22,6 +22,7 @@ namespace SportsStore.Controllers
                     .OrderBy(p => p.ProductID)
                     .Skip((productPage - 1) * PageSize)
                     .Take(PageSize),
+                
                 PagingInfo = new PagingInfo()
                 {
                     CurrentPage = productPage,
