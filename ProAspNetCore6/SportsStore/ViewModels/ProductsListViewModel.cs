@@ -1,0 +1,12 @@
+﻿using SportsStore.Models;
+
+namespace SportsStore.ViewModels
+{
+    public class ProductsListViewModel
+    {
+        public IEnumerable<Product> Products { get; set; } = Enumerable.Empty<Product>();
+
+        public PagingInfo PagingInfo { get; set; }
+        
+    }
+}
