@@ -1,7 +1,5 @@
 ﻿@model ProductsListViewModel
 
-<partial name="PartialHeader" />
-
 @foreach (var p in Model?.Products ?? Enumerable.Empty<Product>())
 {
     <partial name="_ProductSummary" model="p" />
