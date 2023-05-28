@@ -32,12 +32,22 @@ var app = builder.Build();
 //app.MapGet("/", () => "Hello World!");
 app.UseStaticFiles(); // stellt Unterstützung für statische Seiten in wwwroot bereit
 
+app.MapControllerRoute( "catpage",
+    "{category}/Page{productPage:int}",
+    new { Controller = "Home", action = "Index"});
 
-app.MapControllerRoute(
-      "pagination"
+app.MapControllerRoute( "page",
+    "Page{productPage:int}",
+    new { Controller="Home", action="index", productPage = 1 });
+
+app.MapControllerRoute("category",
+    "{category}",
+    new { Controller = "Home", action = "index", productPage = 1 });
+
+
+app.MapControllerRoute( "pagination"
     , "Products/Page{productPage}"
-    , new { Controller = "Home", action = "Index" }
-    );
+    , new { Controller = "Home", action = "Index", productPage = 1 });
 
 //Registriert das MVC - Framework als Quelle von Endpunkten mit
 //Standard-Mapping Einstellungen
