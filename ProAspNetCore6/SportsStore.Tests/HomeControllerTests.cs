@@ -38,8 +38,7 @@ public class HomeControllerTests
         Assert.Equal("P2", prodArray[1].Name);
 
 
-    }
-    
+    } 
     [Fact]
     public void Can_Paginate()
     {
@@ -71,8 +70,6 @@ public class HomeControllerTests
         Assert.Equal("P5", prodArray[1].Name);
     }
 
-    
-    
     // ...ensure that the controller sends the correct pagination data to the view
     [Fact]
     public void Can_Send_Pagination_View_Model()
@@ -104,4 +101,35 @@ public class HomeControllerTests
 
     
     }
+
+    [Fact]
+    public void Can_Filter_Products()
+    { 
+        // Arrange
+        // Create the mock repository
+        Mock<IStoreRepository> mock = new Mock<IStoreRepository>();
+        mock.Setup(m => m.Products).Returns((new Product[] {
+            new Product { ProductID = 1, Name = "P1", Category = "Cat1" },
+            new Product { ProductID = 2, Name = "P2", Category = "Cat2" },
+            new Product { ProductID = 3, Name = "P3", Category = "Cat1" },
+            new Product { ProductID = 4, Name = "P4", Category = "Cat2" },
+            new Product { ProductID = 5, Name = "P5", Category = "Cat3" }
+        }).AsQueryable<Product>());
+
+        // Arrange - create a controller and make the page size 3 items
+        HomeController controller = new HomeController(mock.Object);
+        controller.PageSize = 3;
+
+        //Act
+        ProductsListViewModel model = (controller.Index("Cat2", 1) as ViewResult)?.ViewData.Model as ProductsListViewModel ?? new();
+        Product[] result = model?.Products.ToArray();
+
+        //Assert
+        Assert.Equal(2, result.Length);
+        Assert.True(result[0].Name == "P2" && result[0].Category == "Cat2");
+        Assert.True(result[1].Name == "P4" && result[1].Category == "Cat2");
+
+    
+    }
+    
 }
