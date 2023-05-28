@@ -26,7 +26,7 @@ public class HomeControllerTests
 
         //Act
         ProductsListViewModel viewModel = 
-            (controller.Index() as ViewResult)?.ViewData.Model as ProductsListViewModel;
+            (controller.Index(null) as ViewResult)?.ViewData.Model as ProductsListViewModel;
 
         IEnumerable<Product> products = viewModel.Products;
 
@@ -62,7 +62,7 @@ public class HomeControllerTests
 
         //Act
         ProductsListViewModel model = 
-            (controller.Index(2) as ViewResult).Model as ProductsListViewModel;
+            (controller.Index(null, 2) as ViewResult).Model as ProductsListViewModel;
 
         // Assert
         Product[] prodArray = model.Products.ToArray() ?? Array.Empty<Product>();
@@ -93,7 +93,7 @@ public class HomeControllerTests
 
         //Act
         ProductsListViewModel viewModel = 
-            (homeController.Index(2) as ViewResult)?.ViewData?.Model as ProductsListViewModel ?? new();
+            (homeController.Index(null, 2) as ViewResult)?.ViewData?.Model as ProductsListViewModel ?? new();
 
         //Assert 
         PagingInfo pageInfo = viewModel.PagingInfo;
