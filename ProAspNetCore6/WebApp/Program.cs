@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
-using System.Text.Json.Serialization;
+//using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 
 //-> Validating Data
@@ -13,14 +13,20 @@ builder.Services.AddDbContext<DataContext>(opts =>
     opts.EnableSensitiveDataLogging(true);
 });
 
+builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.Configure<MvcNewtonsoftJsonOptions>(opts => {
+    opts.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+
+});
+
 //Add support for cross-origin requests (CORS)
 builder.Services.AddCors();
 
 // Definiert die Dienste, die für die Verwendung von Controllers gebraucht werden
 builder.Services.AddControllers();
-builder.Services.Configure<JsonOptions>(opts => {
-    opts.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-}); 
+//builder.Services.Configure<JsonOptions>(opts => {
+//    opts.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+//}); 
 
 
 var app = builder.Build();
