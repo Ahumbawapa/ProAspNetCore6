@@ -1,4 +1,6 @@
-﻿namespace Chap12_Platform
+﻿using Microsoft.Extensions.Options;
+
+namespace Chap12_Platform
 {
     public class QueryStringMiddleWare
     {
@@ -32,6 +34,32 @@
             {
                 await next(context);
             }
+        }
+    }
+
+    public class LocationMiddleWare 
+    {
+        private RequestDelegate next;
+        private MessageOptions options;
+
+        public LocationMiddleWare(RequestDelegate nextDelegate,
+            IOptions<MessageOptions> opts)
+        {
+            next = nextDelegate;
+            options = opts.Value;
+        }
+
+        public async Task Invoke(HttpContext context)
+        {
+            if (context.Request.Path == "/location")
+            {
+                await context.Response.WriteAsync($"{options.CityName},{options.CountryName}");
+            }
+            else
+            {
+                await next(context);
+            }
+        
         }
     }
 }
