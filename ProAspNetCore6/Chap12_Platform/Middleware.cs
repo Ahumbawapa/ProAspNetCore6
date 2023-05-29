@@ -2,9 +2,14 @@
 {
     public class QueryStringMiddleWare
     {
-        private RequestDelegate next;
+        private RequestDelegate? next;
 
-        public QueryStringMiddleWare(RequestDelegate nextDelegate)
+        public QueryStringMiddleWare()
+        {
+            //do nothing
+        }
+
+        public QueryStringMiddleWare(RequestDelegate nextDelegate) 
         {
             next = nextDelegate;
         }
@@ -14,7 +19,7 @@
             if (context.Request.Method == HttpMethods.Get
                 && context.Request.Query["custom"] == "true")
             {
-                if (!context.Response.HasStarted) 
+                if (!context.Response.HasStarted)
                 {
                     context.Response.ContentType = "text/plain";
                 }
@@ -22,7 +27,11 @@
                 await context.Response.WriteAsync("Class-based middleware \n");
             }
 
-            await next(context);
+
+            if (null != next)
+            {
+                await next(context);
+            }
         }
     }
 }
