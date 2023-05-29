@@ -8,6 +8,22 @@ app.Use(async (context, next) =>
     await context.Response.WriteAsync($"\nStatus Code: {context.Response.StatusCode}");
 });
 
+//Kurzschließen der Request Pipeline
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path == "/short")
+    {
+        //ohne Aufruf von await next() wird hier direkt die Antwort gestartet
+        await context.Response.WriteAsync($"Request short circuited!");
+        
+    }
+    else
+    { 
+        await next();
+    }
+});
+
+
 //Eigene Middleware wird durch app.Use eingebunden
 app.Use(async (context, next) =>
 {
