@@ -1,4 +1,4 @@
-//-> Adding the Tag Helper Class
+-> Kap 08: Building a Category Navigation Menu
 
 
 using Microsoft.EntityFrameworkCore;
