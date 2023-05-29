@@ -1,6 +1,18 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+
+// Hier wird IApplicationBuilder.Map Methode verwendet, um einen
+// Middleware-Zweig zu starten
+((IApplicationBuilder)app).Map("/branch", branch => { 
+    branch.UseMiddleware<Chap12_Platform.QueryStringMiddleWare>();
+    branch.Use(async (HttpContext context, Func<Task> next) =>
+    {
+        await context.Response.WriteAsync($"Branch Middleware");
+    });
+
+});
+
 // Anwort der Http-Anfrage anpassen
 app.Use(async (context, next) =>
 {
