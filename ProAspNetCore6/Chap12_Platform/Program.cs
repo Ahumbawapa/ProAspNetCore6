@@ -6,9 +6,11 @@ var app = builder.Build();
 // Middleware-Zweig zu starten
 ((IApplicationBuilder)app).Map("/branch", branch => { 
     branch.UseMiddleware<Chap12_Platform.QueryStringMiddleWare>();
-    branch.Use(async (HttpContext context, Func<Task> next) =>
+    // Terminal Middleware beendet die Request-Pipeline
+    // Die Asp.Net core Run() -> Methode ist ein bequemer Weg, Terminal-Middleware zu erzeugen
+    branch.Run(async (context) =>
     {
-        await context.Response.WriteAsync($"Branch Middleware");
+        await context.Response.WriteAsync($"Branch Middleware (terminated by Run()) \n");
     });
 
 });
