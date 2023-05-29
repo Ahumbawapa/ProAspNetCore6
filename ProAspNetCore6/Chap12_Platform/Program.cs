@@ -10,15 +10,13 @@ app.Use(async (context, next) =>
     {
         // wird ausgeführt bei Aufruf http://localhost:5000/?custom=true
 
-        string message = $"Request.Header: {context.Request.Headers.ToString()}";
-        message += $"\nCustom middleware";
-
-
         context.Response.ContentType = "text/plain";
-        await context.Response.WriteAsync(message);
+        await context.Response.WriteAsync("Custom middleware \n");
     }
     await next(); // pass the request to the next component in the middleware pipeline
 });
+
+app.UseMiddleware<Chap12_Platform.QueryStringMiddleWare>();
 
 app.MapGet("/", () => "Hello World!");
 
