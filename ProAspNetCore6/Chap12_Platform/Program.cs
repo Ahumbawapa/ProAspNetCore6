@@ -1,6 +1,13 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+// Anwort der Http-Anfrage anpassen
+app.Use(async (context, next) =>
+{
+    await next(); // zur nächsten Middleware-Komponente weiterreichen
+    await context.Response.WriteAsync($"\nStatus Code: {context.Response.StatusCode}");
+});
+
 //Eigene Middleware wird durch app.Use eingebunden
 app.Use(async (context, next) =>
 {
