@@ -3,7 +3,7 @@ using WebApp.Models;
 //using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 
-//-> Validating Data
+//-> Understanding Content Formatting
 
 var builder = WebApplication.CreateBuilder(args);
 
