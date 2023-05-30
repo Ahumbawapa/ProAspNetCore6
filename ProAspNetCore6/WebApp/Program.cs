@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
 //using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 
 //-> Documenting and Exploring Web Services
 
@@ -35,6 +36,9 @@ builder.Services.Configure<MvcOptions>(opts => {
     opts.ReturnHttpNotAcceptable = true; // disable fallback to JSON on unsupported data format
 });
 
+builder.Services.AddSwaggerGen(c => {
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApp", Version = "v1" });
+});
 
 var app = builder.Build();
 
@@ -43,6 +47,11 @@ app.MapControllers(); // Definiert die Routen bei Verwendung von Controllern
 app.UseMiddleware<WebApp.TestMiddleware>();
 
 app.MapGet("/", () => "Hello World!");
+
+app.UseSwagger();
+app.UseSwaggerUI(options => {
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApp");
+});
 
 var context = app.Services.CreateScope()
     .ServiceProvider.GetRequiredService<DataContext>();
