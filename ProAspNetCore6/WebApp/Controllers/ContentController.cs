@@ -33,6 +33,21 @@ namespace WebApp.Controllers
                 SupplierId = p.SupplierId
             };
         }
+
+        [HttpPost]
+        [Consumes("application/json")] //restricting the datatype to be handled
+        public string SaveProductJson(ProductBindingTarget product) 
+        {
+            return $"JSON: {product.Name}";
+        }
+
+        [HttpPost]
+        [Consumes("application/xml")]
+        public string SaveProductXml(ProductBindingTarget product) 
+        {
+            return $"XML: {product.Name}";
+        }
+
     }
 }
 
