@@ -1,62 +1,20 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Configuration;
 using WebApp.Models;
-//using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
-
-//-> Documenting and Exploring Web Services
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<DataContext>(opts =>
-{
+builder.Services.AddDbContext<DataContext>( opts => {
     opts.UseSqlServer(builder.Configuration["ConnectionStrings:ProductConnection"]);
-    opts.EnableSensitiveDataLogging(true);
+    opts.EnableSensitiveDataLogging();
 });
 
-builder.Services.AddControllers().AddNewtonsoftJson().AddXmlDataContractSerializerFormatters();
-
-builder.Services.AddControllers().AddNewtonsoftJson();
-builder.Services.Configure<MvcNewtonsoftJsonOptions>(opts => {
-    opts.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-
-});
-
-//Add support for cross-origin requests (CORS)
-builder.Services.AddCors();
-
-// Definiert die Dienste, die für die Verwendung von Controllers gebraucht werden
 builder.Services.AddControllers();
-//builder.Services.Configure<JsonOptions>(opts => {
-//    opts.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-//}); 
-
-builder.Services.Configure<MvcOptions>(opts => { 
-    opts.RespectBrowserAcceptHeader = true; //disable fallback to JSON on */* accept headers
-    opts.ReturnHttpNotAcceptable = true; // disable fallback to JSON on unsupported data format
-});
-
-builder.Services.AddSwaggerGen(c => {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApp", Version = "v1" });
-});
-
 var app = builder.Build();
 
-app.MapControllers(); // Definiert die Routen bei Verwendung von Controllern
+app.UseStaticFiles();
+app.MapControllers();
 
-app.UseMiddleware<WebApp.TestMiddleware>();
-
-app.MapGet("/", () => "Hello World!");
-
-app.UseSwagger();
-app.UseSwaggerUI(options => {
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApp");
-});
-
-var context = app.Services.CreateScope()
-    .ServiceProvider.GetRequiredService<DataContext>();
-
+var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
 SeedData.SeedDataBase(context);
-
-
 app.Run();
