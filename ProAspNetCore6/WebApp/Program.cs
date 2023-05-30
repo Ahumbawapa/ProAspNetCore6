@@ -30,6 +30,11 @@ builder.Services.AddControllers();
 //    opts.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 //}); 
 
+builder.Services.Configure<MvcOptions>(opts => { 
+    opts.RespectBrowserAcceptHeader = true; //disable fallback to JSON on */* accept headers
+    opts.ReturnHttpNotAcceptable = true; // disable fallback to JSON on unsupported data format
+});
+
 
 var app = builder.Build();
 

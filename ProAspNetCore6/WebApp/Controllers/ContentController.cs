@@ -52,4 +52,6 @@ PS E:\work\ProAspNetCore6\ProAspNetCore6> Invoke-WebRequest http://localhost:500
 Content-Type                    Content
 ------------                    -------
 application/json; charset=utf-8 {"productId":1,"name":"Kayak","price":275.00,"categoryId":1,"supplierId":1} 
+
+ 
  */
