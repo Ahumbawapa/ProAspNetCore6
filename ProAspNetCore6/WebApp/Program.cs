@@ -9,11 +9,13 @@ builder.Services.AddDbContext<DataContext>( opts => {
     opts.EnableSensitiveDataLogging();
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
 app.UseStaticFiles();
 app.MapControllers();
+app.MapControllerRoute("Default",
+    "{controller=Home}/{action=Index/{id?}}");
 
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
 SeedData.SeedDataBase(context);
