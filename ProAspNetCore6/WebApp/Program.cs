@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Configuration;
 using WebApp.Models;
 
-//-> Selecting a View by Name
+-> Working with Layoutse
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DataContext>( opts => {

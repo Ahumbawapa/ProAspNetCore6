@@ -1,0 +1,22 @@
+﻿<!Doctype html>
+<html>
+    <head>
+        <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <h6>Cubed</h6>
+        <form method="get" action="/cubed/cube">
+           <div class="form-group">
+               <label>Value</label>
+               <input name="num" class="form-control" value="@(TempData["value"])" />
+           </div>
+           <button type="submit">Submit</button>
+        </form>
+    @if (TempData["result"] != null)
+    {
+        <div>
+            The cube of @TempData["value"] is @TempData["result"]
+        </div>    
+    }
+</body>
+</html>
