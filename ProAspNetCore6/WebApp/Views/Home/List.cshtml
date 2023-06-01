@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Product>
 @{
+    // Where a view contains a complete HTML document, Layout-Property can be set to null
+    Layout = null;
     decimal average = Model?.Average(p => p.Price) ?? 0;
 }
 <!Doctype html>
