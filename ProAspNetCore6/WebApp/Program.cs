@@ -2,7 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Configuration;
 using WebApp.Models;
 
--> Working with Layoutse
+//-> Working with Layout
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DataContext>( opts => {
