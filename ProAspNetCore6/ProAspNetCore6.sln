@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstProject", "..\FirstPro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyInvites", "..\PartyInvites\PartyInvites.csproj", "{E24ED24E-D915-4459-90CA-ADED94FB159E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsStore", "SportsStore\SportsStore.csproj", "{C8564A72-9D83-48FA-8B1C-264C16B03106}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore", "SportsStore\SportsStore.csproj", "{C8564A72-9D83-48FA-8B1C-264C16B03106}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsStore.Tests", "SportsStore.Tests\SportsStore.Tests.csproj", "{D364D443-E422-439B-9C00-A78E922E05D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsStore.Tests", "SportsStore.Tests\SportsStore.Tests.csproj", "{D364D443-E422-439B-9C00-A78E922E05D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{1AC018B1-493B-4503-9385-9D9C0CBC3565}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{1AC018B1-493B-4503-9385-9D9C0CBC3565}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chap12_Platform", "Chap12_Platform\Chap12_Platform.csproj", "{75D7056D-4CC0-4591-8400-2342740FB64E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chap12_Platform", "Chap12_Platform\Chap12_Platform.csproj", "{75D7056D-4CC0-4591-8400-2342740FB64E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
