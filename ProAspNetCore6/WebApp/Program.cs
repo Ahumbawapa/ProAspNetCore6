@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Configuration;
 using WebApp.Models;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 //-> Working with Layout
 
@@ -17,6 +18,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options => {
     options.Cookie.IsEssential = true;
+});
+builder.Services.Configure<RazorPagesOptions>(opts => {
+    opts.Conventions.AddPageRoute("/Index", "/extra/page/{id:long?}");
 });
 
 var app = builder.Build();
