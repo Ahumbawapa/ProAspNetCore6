@@ -11,7 +11,7 @@
             <thead>
                 <tr>
                     <th class="bg-primary text-white text-center" colspan="2">
-                        @RenderSection("Header")
+                        @RenderSection("Header", false)
                     </th>
                 </tr>
             </thead>
@@ -23,11 +23,21 @@
             <tfoot>
                 <tr>
                     <th class="bg-primary text-white text-center" colspan="2">
-                        @RenderSection("Footer");
+                        @RenderSection("Footer", false);
                     </th>
                 </tr>
             </tfoot>
         </table>
     </div>
+    @if (IsSectionDefined("Summary"))
+    { 
+        @RenderSection("Summary", false)
+    }
+    else
+    {
+        <div class="bg-info text-center text-white m-2 p-2">
+            This is the default section
+        </div>    
+    }
 </body>
 </html>
