@@ -12,6 +12,7 @@ builder.Services.AddDbContext<DataContext>( opts => {
 });
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options => {
@@ -23,6 +24,7 @@ var app = builder.Build();
 app.UseStaticFiles();
 app.UseSession();
 app.MapControllers();
+app.MapRazorPages();
 //app.MapControllerRoute("Default",
 //    "{controller=Home}/{action=Index}/{id?}");
 
