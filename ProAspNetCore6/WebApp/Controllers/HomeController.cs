@@ -23,5 +23,11 @@ namespace WebApp.Controllers
         {
             return View(_dataContext.Products);
         }
+
+        public IActionResult Html()
+        {
+            //Muss hier als object gecastet werden, da sonst ein View mit dem Namen gesucht würde
+            return View((object)"This is a <h3><i>string</i></h3>");
+        }
     }
 }
