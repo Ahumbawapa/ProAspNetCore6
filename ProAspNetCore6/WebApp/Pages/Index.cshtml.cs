@@ -15,9 +15,12 @@ namespace WebApp.Pages
             context = ctx;
         }
 
-        public async Task OnGetAsync(long id = 1)
+        // Razor Page handler verwenden implizit das IActionResult Interface
+        // durch Änderung explizite Rückgabe von IActionResult
+        public async Task<IActionResult> OnGetAsync(long id = 1)
         {
             Product = await context.Products.FindAsync(id);
+            return Page();
         }
     }
 }
