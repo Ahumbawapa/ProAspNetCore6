@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging.Configuration;
 using WebApp.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-//-> Working with Layout
+//-> Understanding Action Results in Razor Pages
 
 var builder = WebApplication.CreateBuilder(args);
 
