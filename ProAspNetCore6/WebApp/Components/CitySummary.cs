@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
+using System.Security.Cryptography.X509Certificates;
 using WebApp.Models;
 
 namespace WebApp.Components
@@ -38,8 +39,17 @@ namespace WebApp.Components
             //return Content("This is a <h3><i>string</i><h3>");
 
             //Interpretierten HTML - String zurückgeben
-            return new HtmlContentViewComponentResult(new HtmlString("This is a <h3><i>string</i><h3>"));
+            //return new HtmlContentViewComponentResult(new HtmlString("This is a <h3><i>string</i><h3>"));
 
+            //Using context data
+            if (RouteData.Values["controller"] != null)
+            {
+                return Content("Controller Request");
+            }
+            else
+            {
+                return Content("Razor Page Request");
+            }
         }
 
     }
